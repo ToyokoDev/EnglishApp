@@ -129,7 +129,15 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
-
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
 /* 4. Layers */
 @layer base {
   * {

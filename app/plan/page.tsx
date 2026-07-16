@@ -1,5 +1,7 @@
 import CardContainer from "@/components/ui/card-container";
+import CardSecond from "@/components/ui/card-second";
 import CardVocab from "@/components/ui/card-vocab";
+import CardVocabTest from "@/components/ui/card-vocab-test";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -12,9 +14,10 @@ export default async function page() {
   return (
     <div className="flex flex-col gap-6 h-screen items-center">
       <div>
-        {/*className -> responsive*/}
         <CardContainer />
         <CardVocab />
+        <CardVocabTest />
+        <CardSecond />
       </div>
     </div>
   );
