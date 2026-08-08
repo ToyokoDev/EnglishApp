@@ -1,7 +1,9 @@
-import CardContainer from "@/components/ui/card-container";
-import CardSecond from "@/components/ui/card-second";
+
+
 import CardVocab from "@/components/ui/card-vocab";
-import CardVocabTest from "@/components/ui/card-vocab-test";
+import { PlayButton } from "@/components/ui/play-btn";
+import { CreateVocabPopup } from "@/components/ui/createVocabPopup";
+import HeroWord from "@/components/ui/hero-word";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -12,12 +14,14 @@ export default async function page() {
     redirect("/login");
   }
   return (
-    <div className="flex flex-col gap-6 h-screen items-center">
-      <div>
-        <CardContainer />
+    <div className="flex min-h-screen flex-col items-center pt-10">
+      <div className="w-full flex flex-col items-center">
+        <HeroWord />
         <CardVocab />
-        <CardVocabTest />
-        <CardSecond />
+        <div className='flex'>
+        <PlayButton />
+        <CreateVocabPopup userId={session.user.id} />
+        </div>
       </div>
     </div>
   );

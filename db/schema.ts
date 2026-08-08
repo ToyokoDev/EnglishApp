@@ -1,4 +1,4 @@
-import { pgTable, text, boolean, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, boolean, timestamp, integer, serial } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   // id là string, thường dùng uuid hoặc text.
@@ -13,13 +13,13 @@ export const user = pgTable("user", {
     .defaultNow()
     .$onUpdate(() => new Date()),
 });
-export const session = pgTable("sessions", {
+export const session = pgTable("session", {
   id: text("id").primaryKey(),
   userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   token: text("token").notNull().unique(),
-  expiresAt: timestamp("expire_at").notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
   ipAddress: text("ip_address"),
   userAgent: text("user_agent"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -28,7 +28,7 @@ export const session = pgTable("sessions", {
     .$onUpdate(() => new Date())
     .notNull(),
 });
-export const account = pgTable("accounts", {
+export const account = pgTable("account", {
   // Primary Key
   id: text("id").primaryKey(),
 
@@ -64,7 +64,7 @@ export const account = pgTable("accounts", {
     .$onUpdate(() => new Date())
     .notNull(),
 });
-export const verification = pgTable("verifications", {
+export const verification = pgTable("verification", {
   id: text("id").primaryKey(),
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
@@ -72,6 +72,30 @@ export const verification = pgTable("verifications", {
   expiresAt: timestamp("expires_at").notNull(),
 
   // Tự động set thời gian khi tạo mới
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+
+  // Tự động cập nhật thời gian khi dòng dữ liệu bị thay đổi
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+});
+export const vocab = pgTable('vocab', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, {
+      onDelete: "cascade",
+    }),
+  word: text('word').notNull(),
+  type: text('type').notNull(),
+  definition: text('definition').notNull(),
+  example: text('example'),
+  memory: integer('memory').default(0).notNull(), // Mức độ nhớ (0 -> 5)
+  nextReview: integer('nextReview').default(0).notNull(),
+  
   createdAt: timestamp("created_at").defaultNow().notNull(),
 
   // Tự động cập nhật thời gian khi dòng dữ liệu bị thay đổi

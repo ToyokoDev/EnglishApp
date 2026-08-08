@@ -1,16 +1,19 @@
+'use client'
 import { BookOpen, Sparkles, BookText } from "lucide-react";
+import { useState } from "react";
 
 export default function CardVocab() {
+  const [isFlipped, setIsFlipped] = useState(false)
   return (
-    <div className="flex items-center justify-center bg-neutral-950 p-6">
+    <div className="flex items-center justify-center">
       {/* Container cha: h-[224px] = 280px * 0.8 */}
-      <div className="group w-full max-w-[175px] h-[224px] perspective-1000">
-        
+      <div className="group w-[175px] h-[224px] perspective-1000" onClick={() => setIsFlipped(!isFlipped)}>
+
         {/* Lớp chuyển động 3D */}
-        <div className="relative w-full h-full transition-all duration-700 preserve-3d group-hover:rotate-y-180">
-          
+        <div className={`relative w-full h-full transition-all duration-700 preserve-3d ${isFlipped ? "rotate-y-180" : ""}`}>
+
           {/* --- MẶT 1: WORD --- */}
-          <div 
+          <div
             className="absolute w-full h-full backface-hidden rounded-[1.5rem] border border-white/10 shadow-2xl flex flex-col items-center px-4 py-5 bg-[#0b0b16]"
             style={{
               background: `radial-gradient(circle at bottom, rgba(79, 70, 229, 0.45) 0%, rgba(168, 85, 247, 0.25) 40%, transparent 70%), #0b0b16`
@@ -33,7 +36,7 @@ export default function CardVocab() {
           </div>
 
           {/* --- MẶT 2: MEANING --- */}
-          <div 
+          <div
             className="absolute w-full h-full backface-hidden rounded-[1.5rem] border border-white/10 shadow-2xl flex flex-col items-center px-4 py-5 rotate-y-180 bg-[#0b0b16]"
             style={{
               background: `radial-gradient(circle at bottom, rgba(16, 185, 129, 0.35) 0%, rgba(5, 150, 105, 0.15) 40%, transparent 70%), #0b0b16`
