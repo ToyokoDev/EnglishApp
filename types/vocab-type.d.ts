@@ -1,0 +1,1 @@
+declare type VocabType = 'noun' | 'verb' | 'adj' | 'adv' | 'idiom' | 'other';

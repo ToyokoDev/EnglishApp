@@ -17,7 +17,7 @@ export default async function page() {
     <div className="flex min-h-screen flex-col items-center pt-10">
       <div className="w-full flex flex-col items-center">
         <HeroWord />
-        <CardVocab />
+        <CardVocab vocab='Serendipity' definition='surprised lucky' type='noun'/>
         <div className='flex'>
         <PlayButton />
         <CreateVocabPopup userId={session.user.id} />
